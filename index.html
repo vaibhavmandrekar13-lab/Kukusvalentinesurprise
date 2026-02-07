@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+/* ONLY FOR SLIDE s1 */
+#s1 .gif-placeholder{
+  width:100%;
+  height:170px;
+  background:white;
+  border-radius:20px;
+  margin-bottom:18px;
+  box-shadow:0 10px 25px rgba(215,56,109,0.25);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#aaa;
+  font-size:.9em;
+}
+
+#yesBtn{
+  transform-origin:left center;
+}
+
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Poppins',sans-serif;
+}
+
+#fxCanvas{position:fixed;inset:0;z-index:-1;}
+
+.slide{
+  position:absolute;
+  width:360px;
+  max-height:700px;
+  background:rgba(255,255,255,0.95);
+  border-radius:30px;
+  padding:25px;
+  text-align:center;
+  box-shadow:0 25px 60px rgba(0,0,0,.25);
+  display:none;
+  overflow-y:auto;
+  border:2px solid rgba(255,182,193,0.4);
+  backdrop-filter: blur(4px);
+}
+
+.slide.active{display:block;animation:popIn 0.8s ease;}
+
+@keyframes popIn{
+  from{opacity:0;transform:scale(0.75);}
+  to{opacity:1;transform:scale(1);}
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  color:#d7386d;
+  font-weight:700;
+  margin-bottom:15px;
+  text-shadow: 0 2px 8px rgba(215,56,109,0.5);
+}
+
+button{
+  padding:14px 32px;
+  border:none;
+  border-radius:20px;
+  font-size:1.1em;
+  cursor:pointer;
+  font-family:Poppins;
+  background:linear-gradient(135deg,#d7386d,#ff8fb1);
+  color:white;
+  transition:0.4s;
+  box-shadow:0 6px 18px rgba(215,56,109,0.35);
+}
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 10px 25px rgba(215,56,109,0.45);
+}
+
+.next{
+  background:linear-gradient(135deg,#ff8fb1,#d7386d);
+  color:white;
+}
+
+.love-intro{
+  font-size:0.95em;
+  margin-bottom:15px;
+  color:#512b41;
+  line-height:1.6em;
+  font-style:italic;
+}
+
+.love-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:12px;
+  margin-top:12px;
+  justify-items:center;
+  padding-bottom:20px;
+}
+
+.love-card{
+  background:linear-gradient(135deg,#ffe6f0,#ffcce6);
+  padding:12px;
+  border-radius:18px;
+  font-size:.85em;
+  box-shadow:0 8px 18px rgba(215,56,109,.35);
+  animation:fadeUp 0.6s ease forwards;
+  opacity:0;
+  width:100%;
+  box-sizing:border-box;
+  text-align:center;
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+.love-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 25px rgba(215,56,109,.45);
+}
+
+@keyframes fadeUp{
+  from{transform:translateY(20px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+.envelopes{display:flex;flex-direction:column;gap:18px;}
+.envelope{
+  width:220px;height:140px;background:#ffd1dc;
+  margin:auto;border-radius:16px;
+  cursor:pointer;position:relative;overflow:hidden;
+  box-shadow:0 8px 20px rgba(215,56,109,0.25);
+}
+.flap{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(135deg,#ff8fb1,#d7386d);
+  clip-path:polygon(0 0,50% 50%,100 0%);
+  transform-origin:top;
+  transition:.6s;
+}
+.letter{
+  position:absolute;bottom:-100%;width:100%;height:100%;
+  background:white;transition:.6s;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(215,56,109,0.2);
+}
+.envelope.open .flap{transform:rotateX(180deg);}
+.envelope.open .letter{bottom:0;}
+.letter img{width:180px;border-radius:12px;box-shadow:0 6px 18px rgba(215,56,109,0.3);}
+
+.slide-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin:20px auto;
+  max-width:300px;
+}
+.slide-buttons button{width:100%;padding:12px 0;font-size:1em;}
+
+#s6 .val-week-box{
+  background:linear-gradient(145deg,#ffe6f0,#ffcce6);
+  width:100%;
+  max-width:310px;
+  min-height:320px;
+  border-radius:24px;
+  padding:20px 15px 60px;
+  box-shadow:0 12px 28px rgba(215,56,109,0.25);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  animation:fadeInText 1.2s ease forwards;
+}
+#s6 .val-week-box h3{
+  font-family:'Playfair Display',serif;
+  color:#d7386d;
+  margin:0;
+  text-shadow:0 2px 10px rgba(215,56,109,0.3);
+}
+#s6 .val-week-box img{
+  width:230px;
+  border-radius:16px;
+  box-shadow:0 6px 18px rgba(215,56,109,0.25);
+}
+
+#s7 .gif-container{
+  margin-top:15px;
+  background:white;
+  width:100%;
+  max-width:320px;
+  min-height:200px;
+  border-radius:20px;
+  box-shadow:0 12px 28px rgba(215,56,109,0.25);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+#s7 .gif-container img{
+  max-width:100%;
+  max-height:100%;
+  border-radius:16px;
+  box-shadow:0 6px 18px rgba(215,56,109,0.3);
+}
+#s1 #yesBtn{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  white-space:nowrap;
+
+  /* override padding-growth offset visually */
+  box-sizing:border-box;
+  text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="fxCanvas"></canvas>
+
+<div class="slide active" id="startSlide">
+  <p style="font-size:.85em;color:#555;">Hiiii Kukulyaa😋 start button press kar</p>
+  <button style="font-size:1.5em;padding:20px 40px;" onclick="startExperience()">Start 💖</button>
+</div>
+
+<div class="slide" id="s1">
+
+  <!-- GIF PLACEHOLDER ABOVE -->
+  <div class="gif-placeholder">
+  <img src="valentine.gif" alt="Valentine GIF" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+</div>
+
+<h1>Will you be my Valentine Malkin ji?🥹🙏🏻</h1>
+<p>Official invite from your future husband (cutu)</p>
+<div style="position:relative;height:90px;">
+<button class="yes" id="yesBtn">YES! 💖</button>
+<button class="no" id="runNo">No :(</button>
+</div>
+</div>
+
+<div class="slide" id="s1a">   <h1 class="fade-in">     Hihihihihihihihihihihihihi😋😋😋🥰🥰🥰🥰❤️🤌🏻🤌🏻🤌🏻🫂🫂❤️😘😘😘   </h1>   <div style="margin-top:20px;">     <button class="next" onclick="goSlide(2)">Next ➜</button>   </div> </div>
+
+<div class="slide" id="s2">
+  <h1>Good job babydoll 😋</h1>
+  <p>You just unlocked unlimited hugs, kisses and cuddles<br>(redeemable very soon I promise)</p>
+  <p><b>Now you’re stuck with me forever ∞</b></p>
+
+  <div class="slide-buttons">
+    <button class="yes" onclick="goSlide(3)">Wait… do you want to change your mind? 😏</button>
+    <button class="no" onclick="goSlide(3)">Actually… No 😈</button>
+  </div>
+
+  <div style="margin-top:15px;text-align:center;">
+    <button class="next" onclick="goSlide(3)">Next ➜</button>
+  </div>
+</div>
+
+<div class="slide" id="s3">
+<h1>No take-backs allowed 😈</h1>
+<p>❌ You’re legally mine now (I checked)</p>
+<p>❌ Every “no” = 10 extra kisses when we meet</p>
+<p>✅ You’re stuck with me forever</p>
+<p><b>Deal with it 😘💕</b></p>
+<div style="margin-top:20px;">
+<button class="next" onclick="goSlide(4)">Next ➜</button>
+</div>
+</div>
+
+<div class="slide" id="s4">
+<h1>Things I Love About You 💖</h1>
+<p class="love-intro">
+Even if you’re miles away, you’re still my favorite person.  
+Distance is just a number, but us? We’re infinite.  
+Every single day I fall a little more in love with you and honestly, I’m not even mad about it.  
+Every single day makes me realize how lucky I am to have you in my life.
+</p>
+<div class="love-grid" id="loveGrid"></div>
+<div style="margin-top:20px;">
+<button class="next" onclick="goSlide(5)">Next ➜</button>
+</div>
+</div>
+
+<div class="slide" id="s5">
+<h1>For You 💌🫶🏻</h1>
+<div class="envelopes">
+<div class="envelope" onclick="openEnv(this)"><div class="flap"></div><div class="letter"><img src="env1.jpg"></div></div>
+<div class="envelope" onclick="openEnv(this)"><div class="flap"></div><div class="letter"><img src="env2.jpg"></div></div>
+<div class="envelope" onclick="openEnv(this)"><div class="flap"></div><div class="letter"><img src="env3.jpg"></div></div>
+</div>
+<button class="next" onclick="goSlide(6)">Next ➜</button>
+</div>
+
+<div class="slide" id="s6">
+  <h1>I'm Sorry Shani🥹🫂</h1>
+  <p>
+    I won't be able to meet you every day during this Valentine's week,  
+    but here is my presence in a cute way… 💌
+  </p>
+
+  <div id="valWeekContainer"></div>
+
+  <button class="next" onclick="goSlide(7)">Next ➜</button>
+</div>
+
+<div class="slide" id="s7">
+<h1>Thank You My Valentine 😘💋</h1>
+<p>Sending infinite kisses…</p>
+<div class="gif-container">
+  <img src="yourgif.gif" alt="Valentine GIF">
+</div>
+</div>
+
+<audio id="song" src="song.mp3"></audio>
+
+<script>
+// Canvas & song
+const canvas=document.getElementById("fxCanvas");
+const ctx=canvas.getContext("2d");
+const song=document.getElementById("song");
+song.volume=0.5;
+
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resize(); addEventListener("resize",resize);
+
+// Fireworks
+let fireworks=[], fireworksActive=false;
+
+class Firework{
+  constructor(x,y){
+    this.x=x; this.y=y; this.particles=[];
+    this.color='hsl('+(Math.random()*360)+',100%,70%)';
+    for(let i=0;i<50;i++){
+      this.particles.push({x:this.x,y:this.y,vx:(Math.random()-0.5)*6,vy:(Math.random()-0.5)*6,alpha:1});
+    }
+  }
+  update(){
+    this.particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.alpha-=0.02;});
+    this.particles=this.particles.filter(p=>p.alpha>0);
+  }
+  draw(ctx){
+    this.particles.forEach(p=>{
+      ctx.fillStyle=this.color.replace('70%',''+(p.alpha*70|0)+'%');
+      ctx.beginPath(); ctx.arc(p.x,p.y,2,0,Math.PI*2); ctx.fill();
+    });
+  }
+}
+
+function loop(){
+  ctx.fillStyle='rgba(255,255,255,0.1)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  if(fireworksActive && Math.random()<0.02) fireworks.push(new Firework(Math.random()*canvas.width,Math.random()*canvas.height/2));
+  fireworks.forEach(fw=>{fw.update();fw.draw(ctx);});
+  fireworks=fireworks.filter(fw=>fw.particles.length>0);
+  requestAnimationFrame(loop);
+}
+loop();
+
+// Slide navigation
+function goSlide(slide){
+  document.querySelectorAll(".slide").forEach(s=>s.classList.remove("active"));
+  if(slide==="start") document.getElementById("startSlide").classList.add("active");
+  else document.getElementById("s"+slide).classList.add("active");
+
+  fireworksActive=(slide==="1a"); // fireworks only on YES slide
+
+  if(slide===4) loadLove();
+  if(slide===6) loadValWeek();
+}
+
+function startExperience(){
+  song.muted=false;
+  song.currentTime=32;
+  song.play().catch(()=>{});
+  goSlide(1);
+}
+
+document.getElementById("yesBtn").addEventListener("click",()=>{
+  if(navigator.vibrate){navigator.vibrate([3000]);}
+  goSlide("1a");
+});
+
+// No button label cycle + YES grows
+
+const noTexts=[
+  "Are you sure?",
+  "Really sure?",
+  "Think again 👀",
+  "Last chance 😳",
+  "Sure naka? 🥺",
+  "Okay… fine 😔"
+];
+
+let noIndex=0;
+let grow=0;
+
+const noBtn=document.getElementById("runNo");
+const yesBtn=document.getElementById("yesBtn");
+
+noBtn.addEventListener("click",()=>{
+  if(noIndex<noTexts.length){
+    noBtn.textContent=noTexts[noIndex];
+    noIndex++;
+    yesBtn.style.width = (yesBtn.offsetWidth + 45) + "px";
+
+}
+  if(noIndex===noTexts.length){
+    setTimeout(()=>noBtn.style.display="none",40);
+  }
+});
+
+
+function openEnv(e){e.classList.toggle("open");}
+
+// Love points
+const lovePoints=["Your beautiful smile","The effort you put into us","Your late night texts","How you never give up on us","Your caring heart","Your loyalty","Your honesty","The way you motivate me","Your sweetness","How you listen to me","Your patience","The love you show daily","Your sacrifices","Your dedication","How you understand me","Your warmth","Your kindness","Your laughter","Your faith in us","Everything about you"];
+function loadLove(){const grid=document.getElementById("loveGrid");grid.innerHTML="";lovePoints.forEach((t,i)=>{setTimeout(()=>{const d=document.createElement("div");d.className="love-card";d.textContent="💗 "+t;grid.appendChild(d);},i*120);});}
+
+// Valentine week
+const valWeekDays=["Happy Rose Day","Happy Propose Day","Happy Chocolate Day","Happy Teddy Day","Happy Promise Day","Happy Hug Day","Happy Kiss Day","Happy Valentine’s Day Shanu🥹❤️"];
+const valWeekImages=["img1.jpg","img2.jpg","img3.jpg","img4.jpg","img5.jpg","img6.jpg","img7.jpg","img8.jpg"];
+function loadValWeek(){
+  const container=document.getElementById("valWeekContainer");
+  container.innerHTML="";
+  let index=0;
+  function showDay(){
+    container.innerHTML="";
+    const box=document.createElement("div");
+    box.className="val-week-box";
+    const h=document.createElement("h3"); h.textContent=valWeekDays[index]; box.appendChild(h);
+    const img=document.createElement("img"); img.src=valWeekImages[index]; box.appendChild(img);
+    container.appendChild(box);
+    setTimeout(()=>{
+  index++;
+  if(index < valWeekDays.length) showDay();
+},4000);
+
+  }
+  showDay();
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
